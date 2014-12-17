@@ -1,5 +1,5 @@
-#ifndef		ORDENACAO_H
-#define		ORDENACAO_H
+#ifndef		SRC_INC_ORDENACAO_H
+#define		SRC_INC_ORDENACAO_H
 
 #include	<vector>
 
@@ -17,9 +17,12 @@ public:
 
 	static void shellSort(std::vector<int>* entrada);
 	static void shellSort(std::vector<int>* entrada, bool tipo);
+
+	static void quickSort(std::vector<int>* entrada);
+	static void quickSort(std::vector<int>* entrada, bool tipo);
 private:
 	static void trocaPosicoes(std::vector<int>* entrada, int destino, int fonte);
 };
 
-#endif		// ORDENACAO_H
+#endif		// SRC_INC_ORDENACAO_H
 

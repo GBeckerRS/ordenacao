@@ -95,7 +95,7 @@ void Ordenacao::shellSort(std::vector<int>* entrada)
 
 void Ordenacao::shellSort(std::vector<int>* entrada, bool tipo)
 {
-	int h = 1, tamanho = (*(entrada)).size(), temp = 0;
+	int h = 1, tamanho = (*(entrada)).size(), temp = 0, j = 0;
 
 	for(;h < tamanho;h = ((3*h)+1));
 	
@@ -105,23 +105,38 @@ void Ordenacao::shellSort(std::vector<int>* entrada, bool tipo)
 		for(int i = h; i < tamanho; i++)
 		{
 			temp = (*(entrada))[i];
-			for(int j = i; j > 0; j -= h)
+			j = i;
+			if(tipo)
 			{
-				if(tipo)
+				while((j-h) >= 0 && (temp < (*(entrada))[j-h]))
 				{
 					// Ordem crescente
-					if((*(entrada))[j] > temp)
-					{
-						trocaPosicoes(entrada,j,i);
-					}
-				}
-				else
-				{
-					// Ordem decrescente
+					(*(entrada))[j] = (*(entrada))[j-h];
+					j -= h;
 				}
 			}
+			else
+			{
+				while((j-h) >= 0 && (temp > (*(entrada))[j-h]))
+				{
+					// Ordem crescente
+					(*(entrada))[j] = (*(entrada))[j-h];
+					j -= h;
+				}
+			}
+			(*(entrada))[j] = temp;
 		}
 	}
+}
+
+void Ordenacao::quickSort(std::vector<int>* entrada)
+{
+	quickSort(entrada, true);
+}
+
+void Ordenacao::quickSort(std::vector<int>* entrada, bool tipo)
+{
+
 }
 
 /*

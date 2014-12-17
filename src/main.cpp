@@ -16,7 +16,7 @@ int main()
 		cout << *it << " ";
 	cout << endl;
 
-	Ordenacao::selectionSort(&v1,false);
+	Ordenacao::shellSort(&v1,false);
 
 	cout << "Vetor ordenado: ";
 	for(vector<int>::iterator it = v1.begin(); it != v1.end(); it++)
