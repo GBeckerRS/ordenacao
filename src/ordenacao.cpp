@@ -104,7 +104,22 @@ void Ordenacao::shellSort(std::vector<int>* entrada, bool tipo)
 		h /= 3;
 		for(int i = h; i < tamanho; i++)
 		{
-			
+			temp = (*(entrada))[i];
+			for(int j = i; j > 0; j -= h)
+			{
+				if(tipo)
+				{
+					// Ordem crescente
+					if((*(entrada))[j] > temp)
+					{
+						trocaPosicoes(entrada,j,i);
+					}
+				}
+				else
+				{
+					// Ordem decrescente
+				}
+			}
 		}
 	}
 }
