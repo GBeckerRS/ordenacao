@@ -139,6 +139,16 @@ void Ordenacao::quickSort(std::vector<int>* entrada, bool tipo)
 
 }
 
+void Ordenacao::bucketSort(std::vector<int>* entrada)
+{
+
+}
+
+void Ordenacao::bucketSort(std::vector<int>* entrada, bool tipo)
+{
+
+}
+
 /*
 	METODOS PRIVADOS
 */
