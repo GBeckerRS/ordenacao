@@ -17,9 +17,6 @@ public:
 
 	static void shellSort(std::vector<int>* entrada);
 	static void shellSort(std::vector<int>* entrada, bool tipo);
-
-	static void quickSort(std::vector<int>* entrada);
-	static void quickSort(std::vector<int>* entrada, bool tipo);
 private:
 	static void trocaPosicoes(std::vector<int>* entrada, int destino, int fonte);
 };

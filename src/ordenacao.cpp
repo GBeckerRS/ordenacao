@@ -129,16 +129,6 @@ void Ordenacao::shellSort(std::vector<int>* entrada, bool tipo)
 	}
 }
 
-void Ordenacao::quickSort(std::vector<int>* entrada)
-{
-	quickSort(entrada, true);
-}
-
-void Ordenacao::quickSort(std::vector<int>* entrada, bool tipo)
-{
-
-}
-
 /*
 	METODOS PRIVADOS
 */
