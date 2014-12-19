@@ -20,11 +20,9 @@ public:
 
 	static void quickSort(std::vector<int>* entrada);
 	static void quickSort(std::vector<int>* entrada, bool tipo);
-
-	static void bucketSort(std::vector<int>* entrada);
-	static void bucketSort(std::vector<int>* entrada, bool tipo);
 private:
 	static void trocaPosicoes(std::vector<int>* entrada, int destino, int fonte);
+	static void quickSort(std::vector<int>* entrada,int inicio, int fim, bool tipo);
 };
 
 #endif		// SRC_INC_ORDENACAO_H
