@@ -136,7 +136,7 @@ void Ordenacao::quickSort(std::vector<int>* entrada)
 
 void Ordenacao::quickSort(std::vector<int>* entrada, bool tipo)
 {
-	quickSort(entrada,0,(*(entrada)).size(),tipo);
+	quickSort(entrada,0,((*(entrada)).size()) - 1,tipo);
 }
 
 /*
@@ -157,10 +157,20 @@ void Ordenacao::quickSort(std::vector<int>* entrada,int inicio, int fim, bool ti
 
 	do
 	{
-		while((*(entrada))[i] < media)
-			i++;
-		while((*(entrada))[j] > media)
-			j--;
+		if(tipo)
+		{
+			while((*(entrada))[i] < media)
+				i++;
+			while((*(entrada))[j] > media)
+				j--;
+		}
+		else
+		{
+			while((*(entrada))[i] > media)
+				i++;
+			while((*(entrada))[j] < media)
+				j--;
+		}
 
 		if(i <= j)
 		{
@@ -169,47 +179,9 @@ void Ordenacao::quickSort(std::vector<int>* entrada,int inicio, int fim, bool ti
 				j--;
 		}
 	} while(i <= j);
-	if(inicio < i)
+	if(inicio < j)
 		quickSort(entrada,inicio,j,tipo);
-	if(j < fim)
+	if(fim > i)
 		quickSort(entrada,i,fim,tipo);
-/*
-	int tamanho = ((fim + inicio)/2);
-	int i = inicio, j = fim;
-	int media = (*(entrada))[tamanho/2];
-
-	do
-	{
-		while(((*(entrada))[i]) < media)
-			i++;
-		while(((*(entrada))[i]) > media)
-			j--;
-		if(tipo)
-		{
-			// Ordem crescente
-			if(i <= j)
-			{
-				trocaPosicoes(entrada,i,j);
-				i++;
-				j--;
-			}
-		}
-		else
-		{
-			// Ordem decrescente
-			if(i >= j)
-			{
-				trocaPosicoes(entrada,i,j);
-				i++;
-				j--;
-			}
-		}
-	} while(i <= j);
-	// Recursão
-	if(inicio < i)
-		quickSort(entrada,inicio,j,tipo);
-	if(j < fim)
-		quickSort(entrada,i,fim,tipo);
-*/
 }
 
