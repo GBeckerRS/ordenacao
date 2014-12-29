@@ -8,7 +8,7 @@ Algorítimos implementados:
 2 - InsertionSort
 3 - SelectionSort
 4 - ShellSort
-8 - QuickSort
+5 - QuickSort
 
 Algorítimos em desenvolvimento:
 
