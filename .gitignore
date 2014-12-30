@@ -1,0 +1,8 @@
+Makefile~
+bin/
+obj/
+*.txt~
+*.h~
+*.cpp~
+.gitignore~
+
