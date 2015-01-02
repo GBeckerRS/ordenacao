@@ -5,6 +5,8 @@
 #include	<vector>
 #include	<sstream>
 
+#include	"ordenacao.h"
+
 class Aplicacao
 {
 public:
@@ -16,9 +18,10 @@ private:
 	int tamanho;
 	std::vector<int> vec;
 
-	int menu();
+	int menu(std::string& msg, int limiteInferior, int limiteSuperior);
 	void novoTamanho();
 	int getTamanho();
+	std::string vectorToString(std::vector<int> vec);
 
 	std::vector<int> bubbleSort();
 	std::vector<int> insertionSort();
