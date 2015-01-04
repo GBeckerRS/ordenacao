@@ -35,20 +35,69 @@ int Aplicacao::run()
 				}
 				else
 				{
-					Ordenacao::bubbleSort(&this->vec,false);
+					Ordenacao::bubbleSort(&vecTemp,false);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
 				}
 				break;
 			case 2:
 				// Insertionsort
+				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
+				op = this->menu(msgSecundaria,1,2);
+				if(op == 1)
+				{
+					Ordenacao::insertionSort(&vecTemp,true);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
+				else
+				{
+					Ordenacao::insertionSort(&vecTemp,false);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
 				break;
 			case 3:
 				// Selectionsort
+				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
+				op = this->menu(msgSecundaria,1,2);
+				if(op == 1)
+				{
+					Ordenacao::selectionSort(&vecTemp,true);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
+				else
+				{
+					Ordenacao::selectionSort(&vecTemp,false);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
 				break;
 			case 4:
 				// Shellsort
+				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
+				op = this->menu(msgSecundaria,1,2);
+				if(op == 1)
+				{
+					Ordenacao::shellSort(&vecTemp,true);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
+				else
+				{
+					Ordenacao::shellSort(&vecTemp,false);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
 				break;
 			case 5:
 				// Quicksort
+				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
+				op = this->menu(msgSecundaria,1,2);
+				if(op == 1)
+				{
+					Ordenacao::quickSort(&vecTemp,true);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
+				else
+				{
+					Ordenacao::quickSort(&vecTemp,false);
+					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				}
 				break;
 			case 0:
 			default:
@@ -83,13 +132,9 @@ std::string Aplicacao::vectorToString(std::vector<int> vec)
 {
 	std::stringstream buf;
 
-	for(std::vector<int>::iterator it = vec.begin(); it < vec.end(); it++)
+	for(std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 	{
-		buf.str("1");
-		if(it != vec.end())
-		{
-			buf.str(", ");
-		}
+		buf << *it << " ";
 	}
 
 	return buf.str();
