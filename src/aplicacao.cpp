@@ -3,101 +3,68 @@
 Aplicacao::Aplicacao()
 {
 	// Tamanho padrao
-	this->tamanho = 10;
-	this->vec = {7,4,8,1,3,10,2,6,5,9};
+	int num[] = {7,4,8,1,3,10,2,6,5,9};
+	this->tamanho = sizeof(num) / sizeof(int);
+	this->vec = new std::vector<int>(num,num + this->tamanho);
 }
 
 Aplicacao::~Aplicacao()
 {
+	delete this->vec;
+	this->vec = NULL;
 }
 
 int Aplicacao::run()
 {
 	bool sair = false;
 	int op = -1;
-	std::string msgPrincipal = "0 - Sair\n1 - Bubblesort\n2 - InsertionSort\n3 - SelectionSort\n\
-4 - ShellSort\n5 - QuickSort\nOpcao: ";
+	std::string msgPrincipal = "0 - Sair\n1 - Definir novo vetor\n2 - Bubblesort\n3 - InsertionSort\n\
+4 - SelectionSort\n5 - ShellSort\n6 - QuickSort\nOpcao: ";
 	std::string msgSecundaria = "1 - Crescente\n2 - Decrescente\nOpcao: ";
 
 	do
 	{
-		std::vector<int> vecTemp(this->vec);
-		switch(this->menu(msgPrincipal,0,5))
+		std::vector<int> vecTemp(*this->vec);
+		switch(this->menu(msgPrincipal,0,6))
 		{
-			case 1:
+			case 2:
 				// Bubblesort
 				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
 				op = this->menu(msgSecundaria,1,2);
-				if(op == 1)
-				{
-					Ordenacao::bubbleSort(&vecTemp,true);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
-				else
-				{
-					Ordenacao::bubbleSort(&vecTemp,false);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
+				this->doBubbleSort(op,&vecTemp);
+				std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
 				break;
-			case 2:
+			case 3:
 				// Insertionsort
 				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
 				op = this->menu(msgSecundaria,1,2);
-				if(op == 1)
-				{
-					Ordenacao::insertionSort(&vecTemp,true);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
-				else
-				{
-					Ordenacao::insertionSort(&vecTemp,false);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
+				this->doInsertionSort(op,&vecTemp);
+				std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
 				break;
-			case 3:
+			case 4:
 				// Selectionsort
 				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
 				op = this->menu(msgSecundaria,1,2);
-				if(op == 1)
-				{
-					Ordenacao::selectionSort(&vecTemp,true);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
-				else
-				{
-					Ordenacao::selectionSort(&vecTemp,false);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
+				this->doSelectionSort(op,&vecTemp);
+				std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
 				break;
-			case 4:
+			case 5:
 				// Shellsort
 				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
 				op = this->menu(msgSecundaria,1,2);
-				if(op == 1)
-				{
-					Ordenacao::shellSort(&vecTemp,true);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
-				else
-				{
-					Ordenacao::shellSort(&vecTemp,false);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
+				this->doShellSort(op,&vecTemp);
+				std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
 				break;
-			case 5:
+			case 6:
 				// Quicksort
 				std::cout << "Escolha o tipo de ordenacao: " << std::endl;
 				op = this->menu(msgSecundaria,1,2);
-				if(op == 1)
-				{
-					Ordenacao::quickSort(&vecTemp,true);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
-				else
-				{
-					Ordenacao::quickSort(&vecTemp,false);
-					std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
-				}
+				this->doQuickSort(op,&vecTemp);
+				std::cout << "Vetor ordenado: " << this->vectorToString(vecTemp) << std::endl;
+				break;
+			case 1:
+				// Definir no vetor de dados
+				this->novoVetorBase();
 				break;
 			case 0:
 			default:
@@ -107,6 +74,10 @@ int Aplicacao::run()
 	} while(!sair);
 	return 0;
 }
+
+/*
+*	Métodos privados
+*/
 
 int Aplicacao::menu(std::string& msg, int limiteInferior, int limiteSuperior)
 {
@@ -128,15 +99,128 @@ int Aplicacao::menu(std::string& msg, int limiteInferior, int limiteSuperior)
 	return opcao;
 }
 
+bool Aplicacao::setTamanho(int novoTamanho)
+{
+	if(novoTamanho <= 0)
+	{
+		return false;
+	}
+	this->tamanho = novoTamanho;
+	return true;
+}
+
+int Aplicacao::getTamanho()
+{
+	return this->tamanho;
+}
+
 std::string Aplicacao::vectorToString(std::vector<int> vec)
 {
 	std::stringstream buf;
 
 	for(std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 	{
-		buf << *it << " ";
+		buf << *it;
+		if((it+1) != vec.end())
+		{
+			buf << " ";
+		}
 	}
 
 	return buf.str();
+}
+
+void Aplicacao::novoVetorBase()
+{
+	int novoTamanho = 0;
+	bool ehValido = false;
+
+	std::cout << "Digite o novo tamanho do vetor base: ";
+	do
+	{
+		std::cin >> novoTamanho;
+		ehValido = this->setTamanho(novoTamanho);
+		if(!ehValido)
+		{
+			std::cout << "Tamanho invalido! Digite novamente: ";
+		}
+	} while(!ehValido);
+
+	int* vetorTmp = new int[novoTamanho];
+	for(int it = 0; it<novoTamanho;it++)
+	{
+		std::cout << "Digite o elemento " << it << " do novo Vetor: ";
+		std::cin >> vetorTmp[it];
+	}
+
+	delete this->vec;
+	this->tamanho = novoTamanho;
+	this->vec = new std::vector<int>(vetorTmp,vetorTmp + this->tamanho);
+	std::cout << "valores digitados: ";
+	for(std::vector<int>::iterator i = this->vec->begin(); i<this->vec->end();i++)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << std::endl;
+}
+
+void Aplicacao::doBubbleSort(int opcao, std::vector<int>* v)
+{
+	if(opcao == 1)
+	{
+		Ordenacao::bubbleSort(v,true);
+	}
+	else
+	{
+		Ordenacao::bubbleSort(v,false);
+	}
+}
+
+void Aplicacao::doInsertionSort(int opcao, std::vector<int>* v)
+{
+	if(opcao == 1)
+	{
+		Ordenacao::insertionSort(v,true);
+	}
+	else
+	{
+		Ordenacao::insertionSort(v,false);
+	}
+}
+
+void Aplicacao::doSelectionSort(int opcao, std::vector<int>* v)
+{
+	if(opcao == 1)
+	{
+		Ordenacao::selectionSort(v,true);
+	}
+	else
+	{
+		Ordenacao::selectionSort(v,false);
+	}
+}
+
+void Aplicacao::doShellSort(int opcao, std::vector<int>* v)
+{
+	if(opcao == 1)
+	{
+		Ordenacao::shellSort(v,true);
+	}
+	else
+	{
+		Ordenacao::shellSort(v,false);
+	}
+}
+
+void Aplicacao::doQuickSort(int opcao, std::vector<int>* v)
+{
+	if(opcao == 1)
+	{
+		Ordenacao::quickSort(v,true);
+	}
+	else
+	{
+		Ordenacao::quickSort(v,false);
+	}
 }
 

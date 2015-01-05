@@ -16,18 +16,20 @@ public:
 	int run();
 private:
 	int tamanho;
-	std::vector<int> vec;
+	std::vector<int>* vec;
 
 	int menu(std::string& msg, int limiteInferior, int limiteSuperior);
-	void novoTamanho();
+	bool setTamanho(int novoTamanho);
 	int getTamanho();
 	std::string vectorToString(std::vector<int> vec);
 
-	std::vector<int> bubbleSort();
-	std::vector<int> insertionSort();
-	std::vector<int> selectionSort();
-	std::vector<int> shellSort();
-	std::vector<int> quickSort();
+	void novoVetorBase();
+
+	void doBubbleSort(int opcao, std::vector<int>* v);
+	void doInsertionSort(int opcao, std::vector<int>* v);
+	void doSelectionSort(int opcao, std::vector<int>* v);
+	void doShellSort(int opcao, std::vector<int>* v);
+	void doQuickSort(int opcao, std::vector<int>* v);
 };
 
 #endif		// SRC_INC_APLICACAO_H
