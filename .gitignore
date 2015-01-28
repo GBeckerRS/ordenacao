@@ -2,6 +2,7 @@ Makefile~
 bin/
 obj/
 *.txt~
+vec.txt
 *.h~
 *.cpp~
 .gitignore~
