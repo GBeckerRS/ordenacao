@@ -2,10 +2,11 @@
 
 Aplicacao::Aplicacao()
 {
-    // Tamanho padrao
-    int num[] = {7,4,8,1,3,10,2,6,5,9};
-    this->tamanho = sizeof(num) / sizeof(int);
-    this->vec = new std::vector<int>(num,num + this->tamanho);
+    //int num[] = {7,4,8,1,3,10,2,6,5,9};
+    //this->tamanho = sizeof(num) / sizeof(int);
+    //this->vec = new std::vector<int>(num,num + this->tamanho);
+    this->vec = new std::vector<int>();
+    this->carregaVetor();
 }
 
 Aplicacao::~Aplicacao()
@@ -18,7 +19,8 @@ int Aplicacao::run()
 {
     bool sair = false;
     int op = -1;
-    std::string msgPrincipal = "0 - Sair\n1 - Definir novo vetor\n2 - Bubblesort\n3 - InsertionSort\n\4 - SelectionSort\n5 - ShellSort\n6 - QuickSort\nOpcao: ";
+    std::string msgPrincipal = "0 - Sair\n1 - Definir novo vetor\n2 - Bubblesort\n3 - InsertionSort\n\
+4 - SelectionSort\n5 - ShellSort\n6 - QuickSort\nOpcao: ";
     std::string msgSecundaria = "1 - Crescente\n2 - Decrescente\nOpcao: ";
 
     do
@@ -68,6 +70,7 @@ int Aplicacao::run()
             case 0:
             default:
                 sair = true;
+                this->salvaVetor();
                 break;
         }
     } while(!sair);
@@ -129,23 +132,44 @@ std::string Aplicacao::vectorToString(std::vector<int> vec)
     return buf.str();
 }
 
-int* Aplicacao::carregaVetor()
+void Aplicacao::carregaVetor()
 {
     std::ifstream streamEntrada("vec.txt",std::ifstream::in);
+    std::string* s = NULL;
+    int pos = 0;
+    int* valor = NULL;
+    std::stringstream* buf;
 
     if(streamEntrada.is_open())
     {
-        // TODO: Verificar se arquivo não está vazio
-        std::string v;
-        std::getline(streamEntrada,v);
-        std::cout << v.c_str() << std::endl;
+        s = new std::string();
+        // TODO: nao é feito nenhum tipo de validação do arquivo
+        std::getline(streamEntrada,*s);
         streamEntrada.close();
+        while(!s->empty())
+        {
+            pos = s->find(' ');
+            if(pos < 0)
+            {
+                // Ultimo numero na linha
+                pos = s->size();
+            }
+            buf = new std::stringstream();
+            buf->str(s->substr(0,pos));
+            s->erase(0,pos+1);
+            valor = new int;
+            *buf >> *valor;
+            this->vec->push_back(*valor);
+            delete buf;
+            delete valor;
+        }
     }
     else
     {
         std::cout << "Nao foi possivel abrir a base de dados!" << std::endl;
+        int num[] = {7,4,8,1,3,10,2,6,5,9};
+        this->vec->assign(num,num+10);
     }
-    return NULL;
 }
 
 void Aplicacao::salvaVetor()
@@ -157,7 +181,6 @@ void Aplicacao::salvaVetor()
         std::string v = this->vectorToString(*this->vec);
         std::cout << "Salvando a base de dados..." << std::endl;
         streamSaida << v.c_str();
-
         streamSaida.close();
     }
     else

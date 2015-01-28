@@ -4,6 +4,7 @@
 #include    <iostream>
 #include    <vector>
 #include    <sstream>
+#include    <fstream>
 
 #include    "ordenacao.h"
 
@@ -23,7 +24,7 @@ private:
     int getTamanho();
     std::string vectorToString(std::vector<int> vec);
 
-    int* carregaVetor();
+    void carregaVetor();
     void salvaVetor();
 
     void novoVetorBase();
